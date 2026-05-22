@@ -1,0 +1,14 @@
+# Python runtime
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Secrets (no API key currently used, but defensive)
+.env
+.env.*
+
+# Editor / OS
+.DS_Store
+.idea/
+.vscode/
