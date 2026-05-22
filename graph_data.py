@@ -115,6 +115,31 @@ NODES = [
     {"id": "concept_preparedness",    "label": "Preparedness Framework (OpenAI)", "type": "concept"},
     {"id": "concept_scaffolding",     "label": "Scaffolding Quality",     "type": "concept"},
     {"id": "concept_logprobs",        "label": "Log-probability Scoring", "type": "concept"},
+
+    # ── Phase 3: Goodhart, red-teaming, safety eval (added 2026-05-22) ───────
+    {"id": "concept_goodhart",            "label": "Goodhart's Law",            "type": "concept"},
+    {"id": "concept_specification_gaming","label": "Specification Gaming",      "type": "concept"},
+    {"id": "concept_reward_hacking",      "label": "Reward Hacking",            "type": "concept"},
+    {"id": "concept_eval_awareness",      "label": "Evaluation Awareness",      "type": "concept"},
+    {"id": "concept_sandbagging",         "label": "Sandbagging",               "type": "concept"},
+    {"id": "concept_deceptive_alignment", "label": "Deceptive Alignment",       "type": "concept"},
+    {"id": "concept_scheming",            "label": "Scheming",                  "type": "concept"},
+    {"id": "concept_prompt_injection",    "label": "Prompt Injection",          "type": "concept"},
+    {"id": "concept_jailbreak",           "label": "Jailbreak",                 "type": "concept"},
+    {"id": "concept_capability_elicit",   "label": "Capability Elicitation",    "type": "concept"},
+    {"id": "concept_alignment_faking",    "label": "Alignment Faking",          "type": "concept"},
+    {"id": "concept_grader_attack",       "label": "Grader Attack",             "type": "concept"},
+
+    # Phase 3 orgs (mentioned in ai_eval.md notes but missing from graph)
+    {"id": "org_gryphon",                 "label": "Gryphon Scientific",        "type": "org"},
+    {"id": "org_securebio",               "label": "SecureBio",                 "type": "org"},
+    {"id": "org_futurehouse",             "label": "FutureHouse",               "type": "org"},
+    {"id": "org_gray_swan",               "label": "Gray Swan",                 "type": "org"},
+
+    # Phase 3 methods
+    {"id": "method_prod_traffic_eval",    "label": "Production-Traffic Eval",   "type": "method"},
+    {"id": "method_deliberative_align",   "label": "Deliberative Alignment",    "type": "method"},
+    {"id": "method_external_red_team",    "label": "External Red Team",         "type": "method"},
 ]
 
 # De-duplicate nodes by id (guard against any copy-paste dupes)
@@ -190,7 +215,7 @@ EDGES = [
     ("paper_miller",         "paper_bestgen",          "extends"),
     ("paper_ameli",          "paper_chatbot_arena",    "extends"),
     ("paper_bigbench_hard",  "paper_bigbench",         "extends"),
-    ("paper_mmlu_pro",       "bm_mmlu",                "extends"),
+    ("bm_mmlu_pro",          "bm_mmlu",                "extends"),
 
     # ── Concept → Concept ────────────────────────────────────────────────────
     ("concept_clustered_se", "concept_sem",            "adjusts"),
@@ -237,4 +262,47 @@ EDGES = [
     ("concept_asl",          "task_dangerous_cap",     "gates on"),
     ("concept_preparedness", "task_dangerous_cap",     "gates on"),
     ("bm_harmbench",         "concept_red_teaming",    "standardizes"),
+
+    # ── Phase 3: Goodhart family + eval-gaming chain (added 2026-05-22) ──────
+    ("concept_goodhart",            "method_static_mcq",          "predicts breakdown of"),
+    ("concept_goodhart",            "method_llm_judge",           "predicts breakdown of"),
+    ("concept_specification_gaming","concept_goodhart",           "instance of"),
+    ("concept_reward_hacking",      "concept_specification_gaming","instance of"),
+    ("concept_reward_hacking",      "concept_rlhf",               "exploits"),
+    ("concept_eval_awareness",      "concept_goodhart",           "instance of"),
+    ("concept_sandbagging",         "concept_eval_awareness",     "form of"),
+    ("concept_alignment_faking",    "concept_eval_awareness",     "form of"),
+    ("concept_deceptive_alignment", "concept_alignment_faking",   "long-horizon variant of"),
+    ("concept_scheming",            "concept_deceptive_alignment","behavioral form of"),
+    ("concept_grader_attack",       "method_llm_judge",           "attacks"),
+    ("concept_grader_attack",       "concept_specification_gaming","instance of"),
+    ("concept_prompt_injection",    "task_safety",                "threatens"),
+    ("concept_jailbreak",           "task_safety",                "threatens"),
+    ("concept_jailbreak",           "concept_red_teaming",        "discovered by"),
+
+    # ── Phase 3: Defenses + eval methodology ─────────────────────────────────
+    ("method_prod_traffic_eval",    "concept_eval_awareness",     "defeats"),
+    ("method_deliberative_align",   "task_safety",                "implements"),
+    ("method_external_red_team",    "concept_red_teaming",        "structures"),
+    ("method_external_red_team",    "concept_capability_elicit",  "requires"),
+    ("concept_capability_elicit",   "task_dangerous_cap",         "measurement step in"),
+
+    # ── Phase 3: Existing papers → new concepts ──────────────────────────────
+    ("paper_alignment_faking",      "concept_alignment_faking",   "names"),
+    ("paper_constitutional_ai",     "concept_rlaif",              "introduces"),
+    ("paper_deliberative",          "method_deliberative_align",  "introduces"),
+
+    # ── Phase 3: Org → method/concept ────────────────────────────────────────
+    ("org_openai",                  "method_prod_traffic_eval",   "operates"),
+    ("org_openai",                  "method_deliberative_align",  "operates"),
+    ("org_apollo",                  "concept_scheming",           "specializes in"),
+    ("org_apollo",                  "concept_deceptive_alignment","specializes in"),
+    ("org_metr",                    "concept_capability_elicit",  "specializes in"),
+    ("org_us_aisi",                 "method_external_red_team",   "operates"),
+    ("org_uk_aisi",                 "method_external_red_team",   "operates"),
+    ("org_uk_aisi",                 "concept_sandbagging",        "studies"),
+    ("org_gryphon",                 "task_dangerous_cap",         "evaluates"),
+    ("org_securebio",               "task_dangerous_cap",         "evaluates"),
+    ("org_futurehouse",             "task_dangerous_cap",         "evaluates"),
+    ("org_gray_swan",               "concept_red_teaming",        "operates"),
 ]

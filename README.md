@@ -6,16 +6,23 @@ the browser. Built so a senior DS or research engineer can orient
 themselves to "how is this field actually evaluated?" in 5 minutes
 without reading 30 papers first.
 
-**91 nodes / 89 edges** across 6 categories:
+**110 nodes / 124 edges** across 6 categories:
 
 | Category | Count | Examples |
 |---|---|---|
-| Papers | 24 | HELM, Goodhart's Law, ARC-AGI, BIG-Bench, MMLU |
-| Benchmarks | 18 | MMLU, GSM8K, HumanEval, MT-Bench, GPQA |
-| Concepts | 18 | Data contamination, Goodhart, calibration, jailbreak |
-| Methods | 13 | LLM-as-a-judge, functional correctness, red-teaming |
-| Tasks | 10 | Reasoning, coding, safety, agentic, RAG |
-| Orgs | 8 | OpenAI, Anthropic, DeepMind, CRFM, AISI |
+| Concepts | 30 | Goodhart's Law, specification gaming, eval awareness, sandbagging, jailbreak |
+| Papers | 24 | HELM, MMLU, BIG-Bench, Constitutional AI, Alignment Faking |
+| Benchmarks | 18 | MMLU, GSM8K, HumanEval, MT-Bench, GPQA, HarmBench, METR |
+| Methods | 16 | LLM-as-a-judge, production-traffic eval, deliberative alignment |
+| Orgs | 12 | OpenAI, Anthropic, METR, Apollo, UK/US AISI, Gryphon, SecureBio |
+| Tasks | 10 | Reasoning, coding, safety, agentic, dangerous capabilities, RAG |
+
+**Phase 3** (added 2026-05-22) expanded the safety / Goodhart / eval-
+gaming branch: the Goodhart family (specification gaming → reward
+hacking, eval awareness → sandbagging → alignment faking → deceptive
+alignment → scheming), grader attacks, prompt injection, jailbreak,
+capability elicitation, plus their canonical defenses (production-
+traffic eval, deliberative alignment, external red teams).
 
 ## Run locally
 

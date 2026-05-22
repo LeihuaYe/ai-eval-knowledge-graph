@@ -22,5 +22,9 @@ All changes go in `graph_data.py`:
 
 ## Learning Progress
 - Phases 1–2C complete (benchmarks, methods, evaluation design)
-- Phase 3 is next: Goodhart's Law, red-teaming, safety evaluation
+- **Phase 3 in progress** (2026-05-22): Goodhart's Law, red-teaming,
+  safety evaluation. Added 19 new nodes (12 concepts + 4 orgs + 3 methods)
+  and 35 edges connecting them. Sources: `wiki/ai-eval/ai_eval.md`
+  Phase 3 prep, "How Labs Do Eval in Practice" notes.
+- Phase 4 (planned): Causal inference × AI eval niche
 - Notes: `~/Dropbox/6. AI/2. Claude/Topics/ai_eval.md`
